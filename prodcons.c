@@ -226,3 +226,33 @@ int main(int argc, char *argv[]) {
    printf("Exit the program\n");
    exit(0);
 }
+
+/* using semaphore
+ * */
+
+Semaphore mutex = 1; // mutual exclusion to shared set of buffers
+Semaphore empty = N; // count of empty buffers (all empty to start)
+Semaphore full = 0; // count of full buffers (none full to start)
+
+producer {
+while (1) {
+Produce new resource;
+wait(empty); // wait for empty buffer
+wait(mutex); // lock buffer list
+Add resource to an empty buffer;
+signal(mutex); // unlock buffer list
+signal(full); // note a full buffer
+}
+}
+
+consumer {
+while (1) {
+wait(full); // wait for a full buffer
+wait(mutex); // lock buffer list
+Remove resource from a full buffer;
+signal(mutex); // unlock buffer list
+signal(empty); // note an empty buffer
+Consume resource;
+}
+}
+S
