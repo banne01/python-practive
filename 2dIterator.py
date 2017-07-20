@@ -151,3 +151,51 @@ public class Solution {
 }
 
 '''
+
+class TdIterator():
+    def __init__(self, arr):
+        self.arr = arr
+        self.crow = 0
+        self.ccol = 0
+        self.trow = len(arr)
+    
+    def next(self):
+        ret = self.arr[self.crow][self.ccol]
+        self.ccol+=1
+        if self.ccol == len(self.arr[self.crow]):
+            self.crow +=1
+            self.ccol = 0
+        return ret
+
+    def hasNext(self):
+        if not self.arr:
+            return False
+        while self.crow < self.trow and not self.arr[self.crow]:
+            self.crow +=1
+        return self.crow < self.trow
+
+    def remove(self):
+        if self.ccol == 0:
+            # last element of the prev row
+            self.arr[self.crow-1].pop()
+        else:
+            self.arr[self.crow] = self.arr[self.crow][:self.ccol-1] + self.arr[self.crow][self.ccol:]
+            self.ccol -=1
+        
+        #if not self.arr[sel.cro]:
+
+
+arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
+it = TdIterator(arr)
+
+while it.hasNext():
+    ret = it.next()
+    print ret
+    if ret in [4,5,6]:
+        it.remove()
+
+it = TdIterator(arr)
+while it.hasNext():
+    print it.next()
+        
+
