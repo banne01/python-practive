@@ -72,3 +72,36 @@ int main()
                          {'Q','S','E'}};
 }
 '''
+
+
+
+def boggle(maze,i, j,visited, result, cur):
+    global M
+    global N
+    global ranges
+    cur += maze[i][j]
+    visited[i][j] = True
+    if cur in words:
+        print cur
+        result.append(cur[:])
+    for r in ranges:
+        if (i+r[0] >= 0 and i+r[0] < M and j+r[1] >= 0 and j+r[1] < N and not visited[i+r[0]][j+r[1]]):
+            boggle(maze, i+r[0], j+r[1], visited, result, cur)
+    visited[i][j] = False        
+
+
+words = set(["GEEKS", "FOR", "QUIZ", "GO"])
+maze = [['G','I','Z'], ['U','E','K'], ['Q','S','E']]
+M = len(maze)
+N = len(maze[0])
+print M
+print N
+result = []
+ranges = [[1,0], [1,1], [1, -1], [0, 1], [0, -1], [-1, 1], [-1, 0], [-1, -1]] 
+
+for i in range(M):
+    for j in range(N):
+        visited = [[False]*(N) for k in range(M)]
+        cur = ""
+        print str(i) + str(j)
+        boggle(maze,i, j,visited,result, cur)
