@@ -181,9 +181,6 @@ class TdIterator():
         else:
             self.arr[self.crow] = self.arr[self.crow][:self.ccol-1] + self.arr[self.crow][self.ccol:]
             self.ccol -=1
-        
-        #if not self.arr[sel.cro]:
-
 
 arr = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]
 it = TdIterator(arr)
@@ -198,4 +195,3 @@ it = TdIterator(arr)
 while it.hasNext():
     print it.next()
         
-
